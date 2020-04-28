@@ -6,9 +6,7 @@ header-includes:
 - \usepackage[T1]{fontenc}
 - \usepackage[margin=1in]{geometry}
 - \renewcommand{\baselinestretch}{1}
-- \usepackage{calc}
 - \usepackage{enumitem}
-- \usepackage{changepage}
 output:
   pdf_document:
     number_sections: no # Yes if you wanted numbered sections
@@ -36,82 +34,82 @@ Define the eight most important measures for the Theory of Change.
 \newline
 **Measure 1**  
 
-  1. Measurement goal  
-  2. Exact measure to be taken  
-  3. Unit of measurement  
-  4. Source of data  
-  5. Rationale for choice of measure  
-  6. Responsibility for data collection  
-  7. Frequency of data collection  
+*Measurement goal* :    
+*Exact measure to be taken* :    
+*Unit of measurement* :    
+*Source of data* :    
+*Rationale for choice of measure* :    
+*Responsibility for data collection* :      
+*Frequency of data collection* :    
 
 **Measure 2**  
 
-  1. Measurement goal  
-  2. Exact measure to be taken  
-  3. Unit of measurement  
-  4. Source of data  
-  5. Rationale for choice of measure  
-  6. Responsibility for data collection  
-  7. Frequency of data collection  
+*Measurement goal* :    
+*Exact measure to be taken* :    
+*Unit of measurement* :    
+*Source of data* :    
+*Rationale for choice of measure* :    
+*Responsibility for data collection* :      
+*Frequency of data collection* :   
 
 **Measure 3**  
 
-  1. Measurement goal  
-  2. Exact measure to be taken  
-  3. Unit of measurement  
-  4. Source of data  
-  5. Rationale for choice of measure  
-  6. Responsibility for data collection  
-  7. Frequency of data collection  
+*Measurement goal* :    
+*Exact measure to be taken* :    
+*Unit of measurement* :    
+*Source of data* :    
+*Rationale for choice of measure* :    
+*Responsibility for data collection* :      
+*Frequency of data collection* :   
 
 **Measure 4**  
 
-  1. Measurement goal  
-  2. Exact measure to be taken  
-  3. Unit of measurement  
-  4. Source of data  
-  5. Rationale for choice of measure  
-  6. Responsibility for data collection  
-  7. Frequency of data collection  
+*Measurement goal* :    
+*Exact measure to be taken* :    
+*Unit of measurement* :    
+*Source of data* :    
+*Rationale for choice of measure* :    
+*Responsibility for data collection* :      
+*Frequency of data collection* :    
 
 **Measure 5**  
 
-  1. Measurement goal  
-  2. Exact measure to be taken  
-  3. Unit of measurement  
-  4. Source of data  
-  5. Rationale for choice of measure  
-  6. Responsibility for data collection  
-  7. Frequency of data collection  
+*Measurement goal* :    
+*Exact measure to be taken* :    
+*Unit of measurement* :    
+*Source of data* :    
+*Rationale for choice of measure* :    
+*Responsibility for data collection* :      
+*Frequency of data collection* :   
 
 **Measure 6**  
 
-  1. Measurement goal  
-  2. Exact measure to be taken  
-  3. Unit of measurement  
-  4. Source of data  
-  5. Rationale for choice of measure  
-  6. Responsibility for data collection  
-  7. Frequency of data collection  
+*Measurement goal* :    
+*Exact measure to be taken* :    
+*Unit of measurement* :    
+*Source of data* :    
+*Rationale for choice of measure* :    
+*Responsibility for data collection* :      
+*Frequency of data collection* :   
   
 **Measure 7**  
 
-  1. Measurement goal  
-  2. Exact measure to be taken  
-  3. Unit of measurement  
-  4. Source of data  
-  5. Rationale for choice of measure  
-  6. Responsibility for data collection  
-  7. Frequency of data collection  
+*Measurement goal* :    
+*Exact measure to be taken* :    
+*Unit of measurement* :    
+*Source of data* :    
+*Rationale for choice of measure* :    
+*Responsibility for data collection* :      
+*Frequency of data collection* :   
 
 **Measure 8**  
 
-  1. Measurement goal  
-  2. Exact measure to be taken  
-  3. Unit of measurement  
-  4. Source of data  
-  5. Rationale for choice of measure  
-  6. Responsibility for data collection  
-  7. Frequency of data collection  
+*Measurement goal* :    
+*Exact measure to be taken* :    
+*Unit of measurement* :    
+*Source of data* :    
+*Rationale for choice of measure* :    
+*Responsibility for data collection* :      
+*Frequency of data collection* :   
   
 ## Sampling Strategy
