@@ -1,0 +1,25 @@
+---
+title: "measurement_html"
+author: "Sara Orofino"
+date: "4/28/2020"
+output: html_document
+---
+
+## Theory of Change  
+Organization:  
+Program Title:  
+
+## Measure Definition
+
+**Measure 1**  
+
+*Measurement goal* :    
+*Exact measure to be taken* :    
+*Unit of measurement* :    
+*Source of data* :    
+*Rationale for choice of measure* :    
+*Responsibility for data collection* :      
+*Frequency of data collection* :  
+
+
+## Sampling Strategy
