@@ -1,0 +1,117 @@
+---
+documentclass: report
+fontsize: 11pt # Options Include 10pt, 11pt, or 12pt
+header-includes:
+- \usepackage{crimson}
+- \usepackage[T1]{fontenc}
+- \usepackage[margin=1in]{geometry}
+- \renewcommand{\baselinestretch}{1}
+- \usepackage{calc}
+- \usepackage{enumitem}
+- \usepackage{changepage}
+output:
+  pdf_document:
+    number_sections: no # Yes if you wanted numbered sections
+  word_document: default
+urlcolor: blue
+---
+
+
+\text{\bfseries\LARGE{ESM 228 Practicum 2}}
+\newline
+\text{\Large{Simone Albuquerque, Sara Orofino, Elena Zhang}}
+\newline
+\text{\Large{May 4, 2020}}
+\noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
+
+
+
+## Theory of Change  
+Organization:  
+Program Title:  
+
+## Measure Definition
+
+Define the eight most important measures for the Theory of Change.  
+\newline
+**Measure 1**  
+
+  1. Measurement goal  
+  2. Exact measure to be taken  
+  3. Unit of measurement  
+  4. Source of data  
+  5. Rationale for choice of measure  
+  6. Responsibility for data collection  
+  7. Frequency of data collection  
+
+**Measure 2**  
+
+  1. Measurement goal  
+  2. Exact measure to be taken  
+  3. Unit of measurement  
+  4. Source of data  
+  5. Rationale for choice of measure  
+  6. Responsibility for data collection  
+  7. Frequency of data collection  
+
+**Measure 3**  
+
+  1. Measurement goal  
+  2. Exact measure to be taken  
+  3. Unit of measurement  
+  4. Source of data  
+  5. Rationale for choice of measure  
+  6. Responsibility for data collection  
+  7. Frequency of data collection  
+
+**Measure 4**  
+
+  1. Measurement goal  
+  2. Exact measure to be taken  
+  3. Unit of measurement  
+  4. Source of data  
+  5. Rationale for choice of measure  
+  6. Responsibility for data collection  
+  7. Frequency of data collection  
+
+**Measure 5**  
+
+  1. Measurement goal  
+  2. Exact measure to be taken  
+  3. Unit of measurement  
+  4. Source of data  
+  5. Rationale for choice of measure  
+  6. Responsibility for data collection  
+  7. Frequency of data collection  
+
+**Measure 6**  
+
+  1. Measurement goal  
+  2. Exact measure to be taken  
+  3. Unit of measurement  
+  4. Source of data  
+  5. Rationale for choice of measure  
+  6. Responsibility for data collection  
+  7. Frequency of data collection  
+  
+**Measure 7**  
+
+  1. Measurement goal  
+  2. Exact measure to be taken  
+  3. Unit of measurement  
+  4. Source of data  
+  5. Rationale for choice of measure  
+  6. Responsibility for data collection  
+  7. Frequency of data collection  
+
+**Measure 8**  
+
+  1. Measurement goal  
+  2. Exact measure to be taken  
+  3. Unit of measurement  
+  4. Source of data  
+  5. Rationale for choice of measure  
+  6. Responsibility for data collection  
+  7. Frequency of data collection  
+  
+## Sampling Strategy
