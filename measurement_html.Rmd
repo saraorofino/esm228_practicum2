@@ -6,8 +6,10 @@ output: html_document
 ---
 
 ## Theory of Change  
-Organization:  
-Program Title:  
+Organization:  American Rivers  
+Program Title: American Rivers Fuel Reduction Program  
+
+[Insert image of TOC here]  
 
 ## Measure Definition
 
