@@ -25,3 +25,15 @@ Program Title: American Rivers Fuel Reduction Program
 
 
 ## Sampling Strategy
+
+**Measure 1 **  
+*Target population*: Private land owners in the Sierra Nevada watershed  
+*Challenges to representative sampling*: Cal Fire permits are only required for private land owner burns, any fuel reduction or prescribed burns on federal land uses a different process and much of the land in the Sierra Nevada watershed is federally owned.  
+*Sampling procedure* -  need a way to match the participants to their permit application
+
+outcome variable is binary -0/1 did or did not submit an application
+random draws from binary distribution with some probability
+how many people on average in the population would submit a permit?
+  - maybe data from years prior could inform this and this would give the probability
+  
+similar in structure to Mark's example of if the technology was better or worse for fish
