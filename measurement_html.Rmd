@@ -8,6 +8,11 @@ output: html_document
 ## Theory of Change  
 Organization:  American Rivers  
 Program Title: American Rivers Fuel Reduction Program  
+Region: Sierra Nevada region, specificallly the following four watersheds  
+ 1. American River Watershed  
+ 2. Bear River Watershed  
+ 3. Cosumnes River Watershed  
+ 4. Yuba River Watershed  
 
 [Insert image of TOC here]  
 
@@ -26,14 +31,41 @@ Program Title: American Rivers Fuel Reduction Program
 
 ## Sampling Strategy
 
-**Measure 1 **  
-*Target population*: Private land owners in the Sierra Nevada watershed  
-*Challenges to representative sampling*: Cal Fire permits are only required for private land owner burns, any fuel reduction or prescribed burns on federal land uses a different process and much of the land in the Sierra Nevada watershed is federally owned.  
-*Sampling procedure* -  need a way to match the participants to their permit application
+**Implementation of Fuels Reduction Program** 
 
-outcome variable is binary -0/1 did or did not submit an application
-random draws from binary distribution with some probability
-how many people on average in the population would submit a permit?
-  - maybe data from years prior could inform this and this would give the probability
-  
-similar in structure to Mark's example of if the technology was better or worse for fish
+*Target population*: Private land owners/managers in the Sierra Nevada watershed 
+
+*Challenges to representative sampling*: Much of the land in the Sierra Nevada watershed is federally owned not privately owned. Private land owners require permits to implement fuel reduction programs but fuel reduction typically doesn't occur every year and it is unclear if the same land owner would continue to apply for permits in years immediately following implementing a fuel reduction program on their land.  
+
+*Sampling procedure* Random sampling of private land owners in the watershed to determine if they are Cal Fire permit holders, stratified by county since some counties account for a higher proportion of land in the study area. Participants can be mapped to their permit applications by phone number.    
+
+### DeclareDesign()
+Declare the population  
+
+```{r measure1-population}
+library(DeclareDesign)
+
+# Declare the population 
+# baseline proportions are based on the percent each county contributes to the study area
+# owner number represents 35% of the number of homeowners in the county, since all homeowners may not have large properties where they are participating in fuel management practices
+population <- declare_population(
+  county = add_level(N=8, # there are 8 counties in the watershed
+         baseline=c(0.36,0.23,0.18,0.5,0.5,0.5,0.5, 0.3)), # % coverage of each county in study area
+  owner = add_level(N=c(34000,18000, 10500, 5000, 4000, 2100, 337, 89), 
+                      know=draw_binary(baseline))
+)
+pop <- population()
+pop.vector <- c(34000,18000, 10500, 5000, 4000, 2100, 337, 89)
+
+my_estimand <- declare_estimands(mean(know),
+                                 label = "Ybar")
+```
+
+Reporting and Sampling  
+```{r measure1-report-samp}
+reporting <- declare_assignment(prob=0.4, #lower probably that any given homeowner would be a burn permit holder
+                  assignment_variable = "R")
+
+sampling <- declare_sampling(strata=county,
+               strata_n=c(80,80,80,80,80,80,10,10))
+```
