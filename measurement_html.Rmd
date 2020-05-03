@@ -44,7 +44,7 @@ Region: Sierra Nevada region, specificallly the following four watersheds
 
 *Challenges to representative sampling*: Much of the land in the Sierra Nevada watershed is federally owned not privately owned. Private land owners require permits to implement fuel reduction programs but fuel reduction typically doesn't occur every year and it is unclear if the same land owner would continue to apply for permits in years immediately following implementing a fuel reduction program on their land.  
 
-*Sampling procedure* Random sampling of private land owners in the study area to determine if they are Cal Fire permit holders, stratified by county since some counties account for a higher proportion of land in the study area. Participants can be mapped to their permit applications by phone number.    
+*Sampling procedure* Random sampling of private land owners in the study area to determine if they are Cal Fire permit holders, stratified by county since some counties account for a higher proportion of land in the study area. 
 
 
 ### DeclareDesign()
