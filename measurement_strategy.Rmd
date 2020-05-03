@@ -1,6 +1,6 @@
 ---
 documentclass: report
-fontsize: 11pt # Options Include 10pt, 11pt, or 12pt
+fontsize: 11pt
 header-includes:
 - \usepackage{crimson}
 - \usepackage[T1]{fontenc}
@@ -9,7 +9,9 @@ header-includes:
 - \usepackage{enumitem}
 output:
   pdf_document:
-    number_sections: no # Yes if you wanted numbered sections
+    number_sections: no
+  html_document:
+    df_print: paged
   word_document: default
 urlcolor: blue
 ---
@@ -25,91 +27,73 @@ urlcolor: blue
 
 
 ## Theory of Change  
-Organization:  
-Program Title:  
+**Organization:**  American Rivers  
+**Program Title:** American Rivers Fuel Reduction Program  
+**Region:** Sierra Nevada region, specificallly the following four watersheds - American River Watershed, Bear River Watershed, Cosumnes River Watershed, Yuba River Watershed    
+  
+![Theory of Change American Rivers Fuel Reduction Program](TOC_ESM228_Final.jpg)   
+
 
 ## Measure Definition
 
 Define the eight most important measures for the Theory of Change.  
-\newline
-**Measure 1**  
+**Measure 1: Mapping Accuracy*  
 
-*Measurement goal* :    
-*Exact measure to be taken* :    
-*Unit of measurement* :    
-*Source of data* :    
-*Rationale for choice of measure* :    
-*Responsibility for data collection* :      
-*Frequency of data collection* :    
+**Measure 2: Implementation of Fuel Reduction Programs**  
 
-**Measure 2**  
+ | 
+------------------------               | -------------------------------------------------------------------------------
+Measure Goal             |  Determine if there is a change in the number of fuel reduction programs being implemented on private lands by land owners   
+ | 
+Exact Measure            |  Survey question "Do you have a current Cal Fire permit for debris burning?"
+ | 
+Unit of Measurement      |  Individual respondents   
+ | 
+Source of Data           |  Independent Survey 
+ | 
+Rational for Measure     | Burning on private property in California requires a permit from Cal Fire, tracking the change in permits over time can give an idea of whether or not the program is increasing the demand for fire permits, which are required to implement fuel reduction programs. There are a lot of external factors (i.e. weather, air quality) that control whether or not burning can actually happen on any given day, but by applying for permits land owners show intent to participate in such programs as other factors allow.  
+ | 
+Data Collection          | Independent survyor, can be combined with other survey questions  
+ | 
+Frequency of Collection  | Annually because Cal Fire burn permits are issued annually
 
-*Measurement goal* :    
-*Exact measure to be taken* :    
-*Unit of measurement* :    
-*Source of data* :    
-*Rationale for choice of measure* :    
-*Responsibility for data collection* :      
-*Frequency of data collection* :   
 
-**Measure 3**  
+**Measure 3: Change in Wildfire Risk** 
 
-*Measurement goal* :    
-*Exact measure to be taken* :    
-*Unit of measurement* :    
-*Source of data* :    
-*Rationale for choice of measure* :    
-*Responsibility for data collection* :      
-*Frequency of data collection* :   
+ | 
+------------------------               | -------------------------------------------------------------------------------
+Measure Goal             |  Determine the change in frequency of high severity fires in high priority areas over 5 years   
+ | 
+Exact Measure            |  Number of fires and total acres burned during each annual fire season in high priority areas 
+ | 
+Unit of Measurement      |  Individual wildfire events 
+ | 
+Source of Data           |  Cal Fire wildfire statistics 
+ | 
+Rational for Measure     | Implementing a fuel reduction program should reduce wildfire risk. In the event of wildfires there would be less fuel for the fire to burn leading to overall lower acreages burned.  
+ | 
+Data Collection          | Cal Fire collects data on wildfires in California and statistics on the acreage burned per wildfire 
+ | 
+Frequency of Collection  | Annual
 
-**Measure 4**  
+**Measure 4: Affordability of Fuel Reduction**  
 
-*Measurement goal* :    
-*Exact measure to be taken* :    
-*Unit of measurement* :    
-*Source of data* :    
-*Rationale for choice of measure* :    
-*Responsibility for data collection* :      
-*Frequency of data collection* :    
-
-**Measure 5**  
-
-*Measurement goal* :    
-*Exact measure to be taken* :    
-*Unit of measurement* :    
-*Source of data* :    
-*Rationale for choice of measure* :    
-*Responsibility for data collection* :      
-*Frequency of data collection* :   
-
-**Measure 6**  
-
-*Measurement goal* :    
-*Exact measure to be taken* :    
-*Unit of measurement* :    
-*Source of data* :    
-*Rationale for choice of measure* :    
-*Responsibility for data collection* :      
-*Frequency of data collection* :   
   
-**Measure 7**  
 
-*Measurement goal* :    
-*Exact measure to be taken* :    
-*Unit of measurement* :    
-*Source of data* :    
-*Rationale for choice of measure* :    
-*Responsibility for data collection* :      
-*Frequency of data collection* :   
+**Measure 5: Effectiveness of Educational Materials**  
 
-**Measure 8**  
+ 
 
-*Measurement goal* :    
-*Exact measure to be taken* :    
-*Unit of measurement* :    
-*Source of data* :    
-*Rationale for choice of measure* :    
-*Responsibility for data collection* :      
-*Frequency of data collection* :   
+**Measure 6: Likelihood of Accepting Prescribed Burns**  
+
+   
+
+**Measure 7: Impact of Public Support**  
+
+  
+  
+**Measure 8: Effect on Water Quality**  
+
+ 
   
 ## Sampling Strategy
