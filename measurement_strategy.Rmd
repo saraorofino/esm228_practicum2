@@ -1,6 +1,6 @@
 ---
 documentclass: report
-fontsize: 11pt # Options Include 10pt, 11pt, or 12pt
+fontsize: 11pt
 header-includes:
 - \usepackage{crimson}
 - \usepackage[T1]{fontenc}
@@ -9,7 +9,9 @@ header-includes:
 - \usepackage{enumitem}
 output:
   pdf_document:
-    number_sections: no # Yes if you wanted numbered sections
+    number_sections: no
+  html_document:
+    df_print: paged
   word_document: default
 urlcolor: blue
 ---
@@ -25,22 +27,34 @@ urlcolor: blue
 
 
 ## Theory of Change  
-Organization:  
-Program Title:  
+**Organization:**  American Rivers  
+**Program Title:** American Rivers Fuel Reduction Program  
+**Region:** Sierra Nevada region, specificallly the following four watersheds - American River Watershed, Bear River Watershed, Cosumnes River Watershed, Yuba River Watershed    
+  
+![Theory of Change American Rivers Fuel Reduction Program](TOC_ESM228_Final.jpg)   
+
 
 ## Measure Definition
 
 Define the eight most important measures for the Theory of Change.  
-\newline
 **Measure 1**  
 
-*Measurement goal* :    
-*Exact measure to be taken* :    
-*Unit of measurement* :    
-*Source of data* :    
-*Rationale for choice of measure* :    
-*Responsibility for data collection* :      
-*Frequency of data collection* :    
+ | 
+------------------------               | -------------------------------------------------------------------------------
+Measure Goal             |  Determine the number of fuel reduction programs implemented on private lands by land owners   
+ | 
+Exact Measure            |  Survey question "Do you have a Cal Fire permit for debris burning?", mapped to Cal Fire permit data portal by respondent phone number or address.  
+ | 
+Unit of Measurement      |  Individual respondents and corresponding permit applications  
+ | 
+Source of Data           |  Independent Survey and Cal Fire permit application database 
+ | 
+Rational for Measure     | Burning on private property in California requires a permit from Cal Fire, tracking the change in permits over time can give an idea of whether or not the program is increasing the demand for fire permits, which are required to implement fuel reduction programs.  
+ | 
+Data Collection          | Independent survyor; Cal Fire has an online portal for permit applications, data from public California organizations can be accessed through the California Public Records Act.  
+ | 
+Frequency of Collection  | Annually because Cal Fire burn permits are issued annually.  
+
 
 **Measure 2**  
 
