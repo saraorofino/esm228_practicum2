@@ -263,7 +263,7 @@ diagnosis$diagnosands_df[,c(4,5,12,14)] %>%
 
 *Challenge of drawing a representative sample*: Sampling efforts are done by mailing questionnaires to randomly selected home owners in the 8 counties in the CABY region, but these clusters are of unequal size. It is unclear how many of the questionnaire recipients actually respond to the questionnaire. 
 
-*Sampling procedure*: Cluster-based sampling of private land owners in theses counties with unequal effort according to potential sample size (since some counties have larger population than others)
+*Sampling procedure*: Random sampling of private land owners in the 8 counties in the CABY region with unequal effort according to potential sample size (since some counties have larger population than others)
 
 Using demogrpahic data of each county, we found the approximate number of private land owners per county in the CABY region.
 
