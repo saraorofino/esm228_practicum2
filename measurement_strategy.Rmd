@@ -358,7 +358,7 @@ answer <- declare_estimator(
   estimand = my_estimand) 
 
 design <- population + my_estimand + reporting + sampling + answer
-diagnosis <- diagnose_design(design, sims = 100)
+diagnosis <- diagnose_design(design, sims = 1000)
 
 diagnosis$diagnosands_df[,c(4,5,12,14)] %>%
   kable()
