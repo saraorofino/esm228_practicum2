@@ -24,12 +24,16 @@ urlcolor: blue
 \text{\Large{May 4, 2020}}
 \noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
 
-
+```{r libraries, include=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(kableExtra)
+library(DeclareDesign)
+```
 
 ## Theory of Change  
 **Organization:**  American Rivers  
 **Program Title:** American Rivers Fuel Reduction Program  
-**Region:** Sierra Nevada region, specificallly the following four watersheds - American River Watershed, Bear River Watershed, Cosumnes River Watershed, Yuba River Watershed    
+**Region:** Sierra Nevada region, specificallly the following four watersheds - American River Watershed, Bear River Watershed, Cosumnes River Watershed, Yuba River Watershed (CABY watersheds)      
   
 ![Theory of Change American Rivers Fuel Reduction Program](TOC_ESM228_Final.jpg)   
 
@@ -37,6 +41,7 @@ urlcolor: blue
 ## Measure Definition
 
 Define the eight most important measures for the Theory of Change.  
+
 **Measure 1: Mapping Accuracy**  
 
  | 
@@ -69,7 +74,7 @@ Source of Data           |  Independent Survey
  | 
 Rational for Measure     | Burning on private property in California requires a permit from Cal Fire, tracking the change in permits over time can give an idea of whether or not the program is increasing the demand for fire permits, which are required to implement fuel reduction programs. There are a lot of external factors (i.e. weather, air quality) that control whether or not burning can actually happen on any given day, but by applying for permits land owners show intent to participate in such programs as other factors allow.  
  | 
-Data Collection          | Independent survyor, can be combined with other survey questions  
+Data Collection          | Independent survyor contracted by American Rivers  
  | 
 Frequency of Collection  | Annually because Cal Fire burn permits are issued annually
 
@@ -94,7 +99,21 @@ Frequency of Collection  | Annual
 
 **Measure 4: Affordability of Fuel Reduction**  
 
-  
+ | 
+------------------------               | -------------------------------------------------------------------------------
+Measure Goal             |  Determine the number of land owners in high priority sites with willingness to pay 
+ | 
+Exact Measure            |  Would you be willing to pay for fuel reduction on your property? Yes or No
+ | 
+Unit of Measurement      |  Individual survey respondents 
+ | 
+Source of Data           |  Independent survey firm 
+ | 
+Rational for Measure     | Fuel reduction programs on private land would be paid for by the land owners. In order for fuel programs to be implemented the land owners must be willing to bear the cost of the actions. This measure gives an initial indication of if a land owner would be willing to undertake those costs and allows for tracking how those attitudes change during and after the program.   
+ | 
+Data Collection          | Independent survyor contracted by American Rivers   
+ | 
+Frequency of Collection  | Annual   
 
 **Measure 5: Effectiveness of Educational Materials**  
 
@@ -106,11 +125,11 @@ Exact Measure            |  From what you have heard or read, what best describe
  | 
 Unit of Measurement      |  Individual survey respondents 
  | 
-Source of Data           |  Independent survey firm sampling American River program participants before and after participating in American River outreach and education programs or recieving educational program materials 
+Source of Data           |  Independent survey firm 
  | 
 Rational for Measure     | The best way to know whether the public is supportive of prescribed burns and fuel treatments is to measure it directly. The question does not lead the respondents and has balanced alternatives. The answer "oppose" is placed higher in the list as a signal that it is an appropriate answer. 
  | 
-Data Collection          | Independent survey firm 
+Data Collection          | Independent survyor contracted by American Rivers  
  | 
 Frequency of Collection  | Prior to the educational campaigns and through the program's existence  
  
@@ -125,7 +144,7 @@ Exact Measure            |  What is your opinion on the following statement: "Pr
  | 
 Unit of Measurement      |  Individual survey respondent  
  | 
-Source of Data           |  Survey responses from educational meeting attendees in different counties.  
+Source of Data           |  Survey responses from educational meeting attendees in different counties  
  | 
 Rational for Measure     | The best way to determine the extent to which land managers accept the importance of prescribed fuel treatments is to use a Likert scale question. The response scale starts with "Strongly disagree" and ends with "Strongly Agree", in order to avoid response order bias. A neutral response is added in the middle so respondents aren't forced to choose a side.  
  | 
@@ -144,7 +163,7 @@ Exact Measure            |  Satellite data (Modis Terra) imagery of extent of la
  | 
 Unit of Measurement      |  Acres of study area  
  | 
-Source of Data           |  Nasa
+Source of Data           |  NASA
  | 
 Rational for Measure     | A relatively cost effective means of monitoring large areas for fire and comparing across years 
  | 
@@ -171,7 +190,7 @@ Data Collection          | Local county water utilities
  | 
 Frequency of Collection  | Daily, focused on measures during fire season 
  
-  
+\newpage  
 ## Sampling Strategy
 
 **Measure 2 - Implementation of Fuels Reduction Programs** 
@@ -199,18 +218,23 @@ Alpine              253
 ### DeclareDesign()
 
 Declare the population  
-```{r measure2-population, message=FALSE, warning=FALSE}
+```{r measure2-population, message=FALSE, warning=FALSE, eval=knitr::is_latex_output()}
 # baseline = proportion of land area each county contributes to the total study area
-# prop = proportion of homeowners in each strata out of the total population (workaround for strata mean function error - see 'measure1-delcare-estimator' code below)
-# owner = 35% of the number of homeowners in the county, since all homeowners may not have large properties where they are participating in fuel management practices
+# prop = proportion of homeowners in each strata out of the total population 
+#(workaround for strata mean function error - see 'measure1-delcare-estimator' code below)
+# owner = 35% of the number of homeowners in the county, since all homeowners may 
+#not have large properties where they are participating in fuel management practices
 
 
 population <- declare_population(
   county = add_level(N=8, # there are 8 counties in the watershed
-                     baseline=c(0.36,0.23,0.18,0.5,0.5,0.5,0.5, 0.3), # % coverage of each county in study area
+                     # % coverage of each county in study area
+                     baseline=c(0.36,0.23,0.18,0.5,0.5,0.5,0.5, 0.3), 
                      prop=c(0.459298084, 0.243157809, 0.141842055, 0.067543836, 
-                            0.054035069, 0.028368411, 0.004552455, 0.001202280)), #proportion of homeowners in each county
-  owner = add_level(N=c(18000,34000,10500, 337, 5000, 2100, 4000, 89), # 35% of each county's homeowner population
+                            #proportion of homeowners in each county
+                            0.054035069, 0.028368411, 0.004552455, 0.001202280)), 
+  # 35% of each county's homeowner population
+  owner = add_level(N=c(18000,34000,10500, 337, 5000, 2100, 4000, 89), 
                     know=draw_binary(baseline))
 )
 
@@ -223,8 +247,9 @@ my_estimand <- declare_estimands(mean(know),
 
 Reporting and Sampling  
 ```{r measure2-report-samp, message=FALSE, warning=FALSE}
-reporting <- declare_assignment(prob=0.4, #lower probably that any given homeowner would be a burn permit holder
+reporting <- declare_assignment(prob=0.4, 
                   assignment_variable = "R")
+#lower probably that any given homeowner would be a burn permit holder
 
 sampling <- declare_sampling(strata=county,
                strata_n=c(80,80,80,80,80,80,10,10)) # sample size 500
@@ -243,15 +268,19 @@ strata_weighted_mean <- function(data){
     
     estimate = data %>% filter(R==1) %>%
       group_by(as.factor(county)) %>% # strata by county
-      summarise(mean=mean(know), prop=mean(prop)) %>% #work around for prop column error - see below
+      summarise(mean=mean(know), prop=mean(prop)) %>% #work around for prop error (see below)
       # mutate(prop=pop.vector/sum(pop.vector)) %>% 
       mutate(sub.mean=mean*prop) %>% pull(sub.mean) %>% 
       sum()) 
 } 
-# note: prop column kept throwning me a length error (wanted length 7 not 8), I changed all the other vectors to be length 8 and couldn't figure out why it was requiring a length 7 when the strata and my pop.vector was set to 8. Patrick helped me with a workaround - the prop=mean(prop) gives the proportion of households in the strata based on the prop column we defined in the population setup code.  
+# note: prop column kept throwning me a length error (wanted length 7 not 8), 
+# I changed all the other vectors to be length 8 and couldn't figure out why it was 
+# requiring a length 7 when the strata and my pop.vector was set to 8. Patrick helped 
+# me with a workaround - the prop=mean(prop) gives the proportion of households in the 
+# strata based on the prop column we defined in the population setup code.  
 ```
-
-Measure 1 diagnostics
+\newpage
+Diagnostics
 ```{r measure2-diagnosis, message=FALSE, warning=FALSE}
 
 answer <- declare_estimator(
@@ -267,9 +296,96 @@ diagnosis$diagnosands_df[,c(4,5,12,14)] %>%
   kable()
 
 ```
+\newpage
+**Measure 4 - Affordability of Fuel Reduction Programs** 
+
+*Target population*: Landowners in high priority areas    
+
+*Challenges to representative sampling*: High priority region of the CABY watershed private lands are generally less productive, steeper, and more isolated than non-federal ownerships. Each property is difficult to find and may have a private driveway and/or PO box. This survey will be sent via mail to American River Contacts and all folks in the high priority areas. Since AR contacts have already connected to a coservation organization their response rate will likelu be higher than the individuals who have not. In addition, AR contacts are more likely to be willing to pay for fuels treatments as they have been working with a conservtaion non-profit so they are already selected for interest in the program.   
+
+*Sampling procedure*: We will survey homeowners in the High Priority region who have interacted with the fuel management educational program and/or live in the CABY high priority regions and ask whether they would be willing to pay for fuels treatment on their property? a. no b. yes. Sampling wil be conducted by a thir  party survey group as residents may be more likely to reposnd yes to American Rivers as they may want to identify with a local consrrvation organizations goals or not admit publicly they would  not be willing to pay.   
+
+### DeclareDesign()
+
+Declare the population  
+```{r measure4-population, message=F, warning=FALSE}
+
+set.seed(228)
+population_4 <- declare_population(
+  # 3% of homeowners with land large enough for fuel treatment 
+  households_4 = add_level(N=1400, 
+      AR_contact=draw_binary(N=N, prob = 0.4),
+    WTP=correlate(given = AR_contact, rho = 0.5,
+                         draw_binary, prob = 0.5)
+))
+pop_4 <- population_4() 
+# using Declare Design here to create a population of 1400 households, 
+# 500 of are AR contacts. There is a direct correlation between who is 
+# already in contact with AR and their willingness to pay for fuels treatment
+
+kable(table(pop_4$AR_contact,pop_4$WTP)) %>% 
+  add_header_above(c("AR Contact"=1,"Consent to do Prescribed Burn"=2))
+
+# Generate estimand
+my_estimand_4 <- declare_estimands(mean(WTP),
+                                 label = "Ybar")
+
+```
+\newpage
+Reporting & Sampling 
+```{r measure 4 declare report, echo=FALSE, message=F, eval=TRUE }
 
 
+# Block probabilities represent how likely it is that AR_Contacts or 
+# NON-AR_Contacts repond. AR_ Contacts are more likely to repond 
+WTP_report <- declare_assignment(blocks=AR_contact,
+                  assignment_variable = "R",
+                  block_prob=c(0.3,0.7))
 
+WTP_sample <- declare_sampling(strata=AR_contact,
+                             strata_n=c(2895,1448)) 
+# we will oversample NON AR_contacts to get a better representation 
+# of their willingness to pay since they are less likely to report
+```
+
+
+- For residents in contact with AR, the chance of responding is 70%
+- For residents not in contact with AR, the chance of responding is 30%
+```{r measure4-strat-weight, message=F, warning=FALSE}
+# Function for strata weighted mean 
+strata_weighted_mean_4 <- function(data){
+  data.frame(  
+  estimator_label = "strata_w_mean",
+  estimand_label = "Ybar",
+  n = nrow(data),
+  stringsAsFactors = FALSE,
+ 
+  estimate = data %>% filter(R==1) %>%
+    group_by(AR_contact) %>%
+    summarise(mean=mean(WTP)) %>%
+    mutate(prop=c(0.3,0.7)) %>%
+    mutate(sub.mean=mean*prop) %>% pull(sub.mean) %>%
+    sum())
+}
+```
+
+Diagnostics
+```{r measure4-diagnosis, warning=FALSE, message=FALSE}
+
+answer_4 <- declare_estimator(
+  handler = tidy_estimator(strata_weighted_mean_4),
+  estimand = my_estimand_4)
+
+design_4 <- population_4 + my_estimand_4 + WTP_report +
+          WTP_sample + answer_4
+
+diagnosis_4 <- diagnose_design(design, sims = 1000)
+
+diagnosis_4$diagnosands_df[,c(4,5,12,14)] %>%
+  kable()
+```
+
+\newpage
 **Measure 5 - Effectiveness of Educational Materials** 
 
 *Target Population*: Private land owners in the studied area
@@ -295,18 +411,23 @@ Alpine              253
 ### DeclareDesign()
 
 Declare the population
-
-```{r pop}
+```{r measure5-pop, warning=FALSE, message=FALSE}
 set.seed(228)
 population <- declare_population(
   county = add_level(N=8, 
-           basemean=c(1,0.5,0.5,0,-0.4,-0.2,-1,-1)), # the 'basemean' variable represents the mean value of the normal random variable that we use to generate the scale of the survey answers (support, oppose, neither oppose nor support), we assume that land owners in smaller counties tend to oppose prescribed burns and fuel treatments.
+           basemean=c(1,0.5,0.5,0,-0.4,-0.2,-1,-1)), 
+# the 'basemean' variable represents the mean value of the normal random variable 
+# that we use to generate the scale of the survey answers 
+# (support, oppose, neither oppose nor support), we assume that land owners in smaller 
+# counties tend to oppose prescribed burns and fuel treatments.
   
   homeowner = add_level(N=c(98200,51900,30000,15100,10900,6020,963,253),
                       support=draw_ordered(x = rnorm (n = N, mean = basemean),
                       breaks = c (-1, 1),
                       #break_labels = c("support","neutral","oppose")
-                      )) #Here homeowners are labeled by support (value=3), neutral (value=2), or oppose (value=1), corresponding to the value of the normal random variable x<-1, -1<x<1, 1<x
+                      )) 
+# Here homeowners are labeled by support (value=3), neutral (value=2), or oppose (value=1), 
+# corresponding to the value of the normal random variable x<-1, -1<x<1, 1<x
 )
 pop <- population()
 pop.vector <- c(98200,51900,30000,15100,10900,6020,963,253)
@@ -318,20 +439,20 @@ my_estimand <- declare_estimands(mean(support),
 ```
 
 Reporting and Sampling
-
-```{r report-samp}
+```{r measure5-report-samp, warning=FALSE, message=FALSE}
 reporting <- declare_assignment(prob=0.4,
                   assignment_variable = "R")
 # we assume a 40% survey response rate.
 
 sampling <- declare_sampling(strata=county,
                strata_n=c(500,200,100,70,70,30,15,15))
-# we are sampling by county, our strata. We're going to send out 1000 questionnaires in total: 500 questionnaires in Placer, 200 in El Dorado, 100 in Nevada, 70 in Yuba, 70 in Amador, 30 in Plumas, 15 in Sierra, and 15 in Alpine.
+# we are sampling by county, our strata. We're going to send out 1000 questionnaires 
+# in total: 500 questionnaires in Placer, 200 in El Dorado, 100 in Nevada, 70 in Yuba, 
+# 70 in Amador, 30 in Plumas, 15 in Sierra, and 15 in Alpine.
 ```
 
 Declare estimator
-
-```{r declare-estimator}
+```{r measure5-declare-estimator, message=FALSE, warning=FALSE}
 
 strata_weighted_mean <- function(data){
   data.frame(  
@@ -350,9 +471,8 @@ strata_weighted_mean <- function(data){
 
 ```
 
-Measure 5 Diagnostic
-
-```{r diagnosis, cache=TRUE}
+Diagnostics
+```{r measure5-diagnosis, message=FALSE, warning=FALSE}
 
 answer <- declare_estimator(
   handler = tidy_estimator(strata_weighted_mean), 
