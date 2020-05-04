@@ -176,7 +176,20 @@ Frequency of Collection  | Daily, focused on measures during fire season
 
 **Measure 2 - Implementation of Fuels Reduction Programs** 
 
-*Target population*: Private land owners/managers in the study area
+*Target population*: Private land owners/managers in the study area  
+
+Using demogrpahic data of each county, we found the approximate number of private land owners per county in the CABY region. We further assumedd 35% of homeowners owned land large enough to implement fuel management practices.  
+
+County              Approximate private landowner population per county
+-----------         ---------------------------------------------------
+El Dorado           34000
+Placer              18000
+Nevada              10500
+Sierra              5000
+Yuba                4000
+Plumas              2100
+Amador              337
+Alpine              89
 
 *Challenges to representative sampling*: Much of the land in the Sierra Nevada watershed is federally owned not privately owned, but federal actions involve more factors than simply perception and willingness to pay. Private land owners require permits to implement fuel reduction programs but fuel reduction typically doesn't occur every year and it is unclear if the same land owner would continue to apply for permits in years immediately following implementing a fuel reduction program on their land.  
 
