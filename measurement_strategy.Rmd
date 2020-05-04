@@ -37,7 +37,23 @@ urlcolor: blue
 ## Measure Definition
 
 Define the eight most important measures for the Theory of Change.  
-**Measure 1: Mapping Accuracy*  
+**Measure 1: Mapping Accuracy**  
+
+ | 
+------------------------               | -------------------------------------------------------------------------------
+Measure Goal             |  Assess the accuracy of the mapping of high priority sites  
+ | 
+Exact Measure            |  Water quality index before and after wildfires at randomly selected rivers throughout the study area  
+ | 
+Unit of Measurement      |  Water quality index consists of the following metrics: temperature (Celsius), turbidity (NTU), bacteria concentration (colony forming units per mL), pH, dissolved oxygen (mg/L) nutrient composition (parts per million), total suspended solids (mg/L), and toxic substances (toxic units)  
+ | 
+Source of Data           |  Water quality sampling at regular intervals during wildfire season
+ | 
+Rational for Measure     | Water quality is the primary factor defining the high priority areas, comparing water quality between randomly sampled sites designated as high priority and those not designated as high priority can help assess how much of the watershed is high priority. 
+ | 
+Data Collection          | American Rivers group  
+ | 
+Frequency of Collection  | Annual
 
 **Measure 2: Implementation of Fuel Reduction Programs**  
 
@@ -82,18 +98,159 @@ Frequency of Collection  | Annual
 
 **Measure 5: Effectiveness of Educational Materials**  
 
+ | 
+------------------------               | -------------------------------------------------------------------------------
+Measure Goal             |  Assess the public perception of prescribed burns and fuel treatments over time  
+ | 
+Exact Measure            |  From what you have heard or read, what best describes your opinion of prescribed fires and fuel treatment actions?  Oppose, Support, Neither Oppose nor Support, I don't Know  
+ | 
+Unit of Measurement      |  Individual survey respondents 
+ | 
+Source of Data           |  Independent survey firm sampling American River program participants before and after participating in American River outreach and education programs or recieving educational program materials 
+ | 
+Rational for Measure     | The best way to know whether the public is supportive of prescribed burns and fuel treatments is to measure it directly. The question does not lead the respondents and has balanced alternatives. The answer "oppose" is placed higher in the list as a signal that it is an appropriate answer. 
+ | 
+Data Collection          | Independent survey firm 
+ | 
+Frequency of Collection  | Prior to the educational campaigns and through the program's existence  
  
 
 **Measure 6: Likelihood of Accepting Prescribed Burns**  
 
+ | 
+------------------------               | -------------------------------------------------------------------------------
+Measure Goal             |  Determine whether landowners and managers who engage in science-based conversations are more likely to accept the importance of prescribed fuel treatments.     
+ | 
+Exact Measure            |  What is your opinion on the following statement: "Prescribed fire and fuel treatments can lower the risk of wildfire."  Strongly disagreee, Disagree, Neutral, Agree, Strongly Agree  
+ | 
+Unit of Measurement      |  Individual survey respondent  
+ | 
+Source of Data           |  Survey responses from educational meeting attendees in different countries.  
+ | 
+Rational for Measure     | The best way to determine the extent to which land managers accept the importance of prescribed fuel treatments is to use a Likert scale question. The response scale starts with "Strongly disagree" and ends with "Strongly Agree", in order to avoid response order bias. A neutral response is added in the middle so respondents aren't forced to choose a side.  
+ | 
+Data Collection          | American Rivers
+ | 
+Frequency of Collection  | Before and after each educational meeting held as part of the program implementation  
    
 
 **Measure 7: Impact of Public Support**  
 
+ | 
+------------------------               | -------------------------------------------------------------------------------
+Measure Goal             |  Determine if public support increases the number of prescribed burns in the Sierra Nevada region   
+ | 
+Exact Measure            |  Satellite data (Modis Terra) imagery of extent of land burned vs. not burned in high priority regions of the study area   
+ | 
+Unit of Measurement      |  Acres of study area  
+ | 
+Source of Data           |  Nasa
+ | 
+Rational for Measure     | A relatively cost effective means of monitoring large areas for fire and comparing across years 
+ | 
+Data Collection          | NASA collects the Modis Terra satellite data and makes it publically available on their website  
+ | 
+Frequency of Collection  | Readings are taken twice per day, data is analyzed annually during the prescribed burning season 
   
   
 **Measure 8: Effect on Water Quality**  
 
+ | 
+------------------------               | -------------------------------------------------------------------------------
+Measure Goal             |  Determine how water quality changes in the high priority regions of the study area when fuel treatments are used vs. when they are not used. 
+ | 
+Exact Measure            |  Sediment yield (total dissolved solids) in reservoir intake areas within 50 miles of a high priority burn site  
+ | 
+Unit of Measurement      |  Parts per million 
+ | 
+Source of Data           |  Reservoir data
+ | 
+Rational for Measure     | Reservoirs will already be measuring the water quality in close proximity to infiltration points, which we will target in high priority areas. This is a cost effective way of getting real time water quality data throughout the year, which otherwise may be costly.  
+ | 
+Data Collection          | Local county water utilities 
+ | 
+Frequency of Collection  | Daily, focused on measures during fire season 
  
   
 ## Sampling Strategy
+
+**Measure 2 - Implementation of Fuels Reduction Programs** 
+
+*Target population*: Private land owners/managers in the study area
+
+*Challenges to representative sampling*: Much of the land in the Sierra Nevada watershed is federally owned not privately owned, but federal actions involve more factors than simply perception and willingness to pay. Private land owners require permits to implement fuel reduction programs but fuel reduction typically doesn't occur every year and it is unclear if the same land owner would continue to apply for permits in years immediately following implementing a fuel reduction program on their land.  
+
+*Sampling procedure* Random sampling of private land owners in the study area to determine if they are Cal Fire permit holders, stratified by county since some counties account for a higher proportion of land in the study area. 
+
+
+### DeclareDesign()
+
+Declare the population  
+```{r measure1-population, message=FALSE, warning=FALSE}
+# baseline = proportion of land area each county contributes to the total study area
+# prop = proportion of homeowners in each strata out of the total population (workaround for strata mean function error - see 'measure1-delcare-estimator' code below)
+# owner = 35% of the number of homeowners in the county, since all homeowners may not have large properties where they are participating in fuel management practices
+
+
+population <- declare_population(
+  county = add_level(N=8, # there are 8 counties in the watershed
+                     baseline=c(0.36,0.23,0.18,0.5,0.5,0.5,0.5, 0.3), # % coverage of each county in study area
+                     prop=c(0.459298084, 0.243157809, 0.141842055, 0.067543836, 
+                            0.054035069, 0.028368411, 0.004552455, 0.001202280)), #proportion of homeowners in each county
+  owner = add_level(N=c(34000,18000, 10500, 5000, 4000, 2100, 337, 89), # 35% of each county's homeowner population
+                    know=draw_binary(baseline))
+)
+
+pop <- population()
+pop.vector <- c(34000,18000, 10500, 5000, 4000, 2100, 337, 89)
+
+my_estimand <- declare_estimands(mean(know),
+                                 label = "Ybar")
+```
+
+Reporting and Sampling  
+```{r measure1-report-samp, message=FALSE, warning=FALSE}
+reporting <- declare_assignment(prob=0.4, #lower probably that any given homeowner would be a burn permit holder
+                  assignment_variable = "R")
+
+sampling <- declare_sampling(strata=county,
+               strata_n=c(80,80,80,80,80,80,10,10)) # sample size 500
+```
+
+
+Declare estimator to calculate the strata weighed mean of the sample to estimate the population    
+```{r measure1-declare-estimator, message=FALSE, warning=FALSE}
+# function to estimate the population mean using the strata weighted sample mean  
+strata_weighted_mean <- function(data){
+  data.frame(  
+    estimator_label = "strata_w_mean",
+    estimand_label = "Ybar",
+    n = nrow(data),
+    stringsAsFactors = FALSE,
+    
+    estimate = data %>% filter(R==1) %>%
+      group_by(as.factor(county)) %>% # strata by county
+      summarise(mean=mean(know), prop=mean(prop)) %>% #work around for prop column error - see below
+      # mutate(prop=pop.vector/sum(pop.vector)) %>% 
+      mutate(sub.mean=mean*prop) %>% pull(sub.mean) %>% 
+      sum()) 
+} 
+# note: prop column kept throwning me a length error (wanted length 7 not 8), I changed all the other vectors to be length 8 and couldn't figure out why it was requiring a length 7 when the strata and my pop.vector was set to 8. Patrick helped me with a workaround - the prop=mean(prop) gives the proportion of households in the strata based on the prop column we defined in the population setup code.  
+```
+
+Measure 1 diagnostics
+```{r measure1-diagnosis, message=FALSE, warning=FALSE}
+
+answer <- declare_estimator(
+  handler = tidy_estimator(strata_weighted_mean), 
+  estimand = my_estimand) 
+
+design <- population + my_estimand + reporting +
+          sampling + answer
+
+diagnosis <- diagnose_design(design, sims = 1000)
+
+diagnosis$diagnosands_df[,c(4,5,12,14)] %>%
+  kable()
+
+```
