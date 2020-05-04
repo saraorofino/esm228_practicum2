@@ -178,18 +178,18 @@ Frequency of Collection  | Daily, focused on measures during fire season
 
 *Target population*: Private land owners/managers in the study area  
 
-Using demogrpahic data of each county, we found the approximate number of private land owners per county in the CABY region. We further assumedd 35% of homeowners owned land large enough to implement fuel management practices.  
+Using demogrpahic data of each county, we found the approximate number of homeowners per county in the study region, these values are given in the table below. For this measure, we further assumed 35% of homeowners owned land large enough to implement fuel management practices.  
 
-County              Approximate private landowner population per county
+County              Approximate private homeowner population per county
 -----------         ---------------------------------------------------
-El Dorado           34000
-Placer              18000
-Nevada              10500
-Sierra              5000
-Yuba                4000
-Plumas              2100
-Amador              337
-Alpine              89
+El Dorado           51900
+Placer              98200
+Nevada              30000
+Sierra              963
+Yuba                15100
+Plumas              6020
+Amador              10900
+Alpine              253
 
 *Challenges to representative sampling*: Much of the land in the Sierra Nevada watershed is federally owned not privately owned, but federal actions involve more factors than simply perception and willingness to pay. Private land owners require permits to implement fuel reduction programs but fuel reduction typically doesn't occur every year and it is unclear if the same land owner would continue to apply for permits in years immediately following implementing a fuel reduction program on their land.  
 
@@ -210,12 +210,12 @@ population <- declare_population(
                      baseline=c(0.36,0.23,0.18,0.5,0.5,0.5,0.5, 0.3), # % coverage of each county in study area
                      prop=c(0.459298084, 0.243157809, 0.141842055, 0.067543836, 
                             0.054035069, 0.028368411, 0.004552455, 0.001202280)), #proportion of homeowners in each county
-  owner = add_level(N=c(34000,18000, 10500, 5000, 4000, 2100, 337, 89), # 35% of each county's homeowner population
+  owner = add_level(N=c(18000,34000,10500, 337, 5000, 2100, 4000, 89), # 35% of each county's homeowner population
                     know=draw_binary(baseline))
 )
 
 pop <- population()
-pop.vector <- c(34000,18000, 10500, 5000, 4000, 2100, 337, 89)
+pop.vector <- c(18000,34000,10500, 337, 5000, 2100, 4000, 89)
 
 my_estimand <- declare_estimands(mean(know),
                                  label = "Ybar")
@@ -280,16 +280,16 @@ diagnosis$diagnosands_df[,c(4,5,12,14)] %>%
 
 Using demogrpahic data of each county, we found the approximate number of private land owners per county in the CABY region.
 
-County              Approximate private landowner population per county
+County              Approximate private homeowner population per county
 -----------         ---------------------------------------------------
-El Dorado           90000
-Placer              50000
+El Dorado           51900
+Placer              98200
 Nevada              30000
-Sierra              14000
-Yuba                11000
-Plumas              6000
-Amador              900
-Alpine              250
+Sierra              963
+Yuba                15100
+Plumas              6020
+Amador              10900
+Alpine              253
 
 ### DeclareDesign()
 
