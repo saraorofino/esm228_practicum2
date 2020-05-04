@@ -282,14 +282,15 @@ Using demogrpahic data of each county, we found the approximate number of privat
 
 County              Approximate private homeowner population per county
 -----------         ---------------------------------------------------
-El Dorado           51900
 Placer              98200
+El Dorado           51900
 Nevada              30000
-Sierra              963
 Yuba                15100
-Plumas              6020
 Amador              10900
+Plumas              6020
+Sierra              963
 Alpine              253
+
 
 ### DeclareDesign()
 
@@ -301,14 +302,14 @@ population <- declare_population(
   county = add_level(N=8, 
            basemean=c(1,0.5,0.5,0,-0.4,-0.2,-1,-1)), # the 'basemean' variable represents the mean value of the normal random variable that we use to generate the scale of the survey answers (support, oppose, neither oppose nor support), we assume that land owners in smaller counties tend to oppose prescribed burns and fuel treatments.
   
-  homeowner = add_level(N=c(90000,50000,30000,14000,11000,6000,900,250),
+  homeowner = add_level(N=c(98200,51900,30000,15100,10900,6020,963,253),
                       support=draw_ordered(x = rnorm (n = N, mean = basemean),
                       breaks = c (-1, 1),
                       #break_labels = c("support","neutral","oppose")
                       )) #Here homeowners are labeled by support (value=3), neutral (value=2), or oppose (value=1), corresponding to the value of the normal random variable x<-1, -1<x<1, 1<x
 )
 pop <- population()
-pop.vector <- c(90000,50000,30000,14000,11000,6000,900,250)
+pop.vector <- c(98200,51900,30000,15100,10900,6020,963,253)
 
 my_estimand <- declare_estimands(mean(support),
                                  label = "Ybar")
@@ -325,7 +326,7 @@ reporting <- declare_assignment(prob=0.4,
 
 sampling <- declare_sampling(strata=county,
                strata_n=c(500,200,100,70,70,30,15,15))
-# we are sampling by county, our strata. We're going to send out 1000 questionnaires in total: 500 questionnaires in El Dorado, 200 in Placer, 100 in Nevada, 70 in Sierra, 70 in Yuba, 30 in Plumas, 15 in Amador, and 15 in Alpine.
+# we are sampling by county, our strata. We're going to send out 1000 questionnaires in total: 500 questionnaires in Placer, 200 in El Dorado, 100 in Nevada, 70 in Yuba, 70 in Amador, 30 in Plumas, 15 in Sierra, and 15 in Alpine.
 ```
 
 Declare estimator
