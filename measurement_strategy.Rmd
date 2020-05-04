@@ -199,7 +199,7 @@ Alpine              89
 ### DeclareDesign()
 
 Declare the population  
-```{r measure1-population, message=FALSE, warning=FALSE}
+```{r measure2-population, message=FALSE, warning=FALSE}
 # baseline = proportion of land area each county contributes to the total study area
 # prop = proportion of homeowners in each strata out of the total population (workaround for strata mean function error - see 'measure1-delcare-estimator' code below)
 # owner = 35% of the number of homeowners in the county, since all homeowners may not have large properties where they are participating in fuel management practices
@@ -222,7 +222,7 @@ my_estimand <- declare_estimands(mean(know),
 ```
 
 Reporting and Sampling  
-```{r measure1-report-samp, message=FALSE, warning=FALSE}
+```{r measure2-report-samp, message=FALSE, warning=FALSE}
 reporting <- declare_assignment(prob=0.4, #lower probably that any given homeowner would be a burn permit holder
                   assignment_variable = "R")
 
@@ -232,7 +232,7 @@ sampling <- declare_sampling(strata=county,
 
 
 Declare estimator to calculate the strata weighed mean of the sample to estimate the population    
-```{r measure1-declare-estimator, message=FALSE, warning=FALSE}
+```{r measure2-declare-estimator, message=FALSE, warning=FALSE}
 # function to estimate the population mean using the strata weighted sample mean  
 strata_weighted_mean <- function(data){
   data.frame(  
@@ -252,7 +252,7 @@ strata_weighted_mean <- function(data){
 ```
 
 Measure 1 diagnostics
-```{r measure1-diagnosis, message=FALSE, warning=FALSE}
+```{r measure2-diagnosis, message=FALSE, warning=FALSE}
 
 answer <- declare_estimator(
   handler = tidy_estimator(strata_weighted_mean), 
