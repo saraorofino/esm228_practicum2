@@ -135,73 +135,83 @@ diagnosis$diagnosands_df[,c(4,5,12,14)] %>%
 
 **Implementation of Fuels Reduction Program** 
 
-*Target population*: For this measurement our population will be the high priority areas in the Sierra Nevadas(10% of the forest) within the CABY watershed (which is 2,784,640 acres). 1/2 of wildlands in California are privately owned. If we assume this holds true for the portion of the Sierra Nevada region that is high priority, privately owned land will be 139,200 acres. Of those acres private owners how many, after beeing exposed to the programs eduational materials will apply for a CalFire to conduct a prescribed burn on their property. 
+*Target population*: Landowners in high priority areas  
 
-Citation: Starrs, Carlin Frances, et al. “The Impact of Land Ownership, Firefighting, and Reserve Status on Fire Probability in California.” Environmental Research Letters, vol. 13, no. 3, IOP Publishing, Feb. 2018, p. 034025. Institute of Physics, doi:10.1088/1748-9326/aaaad1.
+*Challenges to representative sampling*: High priority region of the CABY watershed private lands are generally less productive, steeper, and more isolated than non-federal ownerships. Each property is difficult to find and may have a private driveway and/or PO box. This survey will be sent via mail to American River Contacts and all folks in the high priority areas. Since AR contacts have already connected to a coservation organization their response rate will likelu be higher than the individuals who have not. In addition, AR contacts are more likely to be willing to pay for fuels treatments as they have been working with a conservtaion non-profit so they are already selected for interest in the program. 
 
-*Challenges to representative sampling*: In the high priority region of the CABY watershed private lands are generally less productive, steeper, and more isolated than non-federal ownerships. Each property is difficult to find and may have a private driveway and/or PO box. This survey will be distributed through American River Contacts. Therefor the sampled population may be more inclined to apply for CalFire permits as they have already connected with a forest/water conservation organization. There also may be a lower response rate from homeowners that live in the high priority regions due to the increased isolation and potential challnegs to submitting a survey. 
-
-*Sampling procedure*: We will survey homeowners in the High Priority region who have interacted with the fuel management educational program and ask whether they would consent to a prescribed burn on their property.  
+*Sampling procedure*: We will survey homeowners in the High Priority region who have interacted with the fuel management educational program and/or live in the CABY high priority regions and ask whether they would be willing to pay for fuels treatment on their property? a. no b. yes. Sampling wil be conducted by a thir  party survey group as residents may be more likely to reposnd yes to American Rivers as they may want to identify with a local consrrvation organizations goals or not admit publicly they would  not be willing to pay. 
 
 ### DeclareDesign()
 Declare the population  
-```{r measure7-population, echo=TRUE, message=F, eval=TRUE, cache=TRUE}
+```{r measure4 -population, echo=TRUE, message=F, eval=TRUE, cache=TRUE}
 
 set.seed(228)
-population_7 <- declare_population(
-  households_7 = add_level(N=1000, #Homeowners in CABY High  Priority region 
-     AR_contact=sample(c(rep(0,500),rep(1,500))), # of residents in high priority area that connect with AR
-     consent=correlate(given = AR_contact, rho = 0.5,
+population_4 <- declare_population(
+  households_4 = add_level(N=4343, #Homeowners in CABY High  Priority region (35% of CABY region are homeowners, 10% are in high priority areas) 
+      AR_contact=draw_binary(N=N, prob = 0.4),
+    WTP=correlate(given = AR_contact, rho = 0.5,
                          draw_binary, prob = 0.5)
 ))
-pop_7 <- population_7() #using Declare Design here to create a population of 500 households, 250 of are located on the main road. Then, we're telling R to use whether or not households are on their main road to determine their level of #there is a direct correlation between who has riparian rights and having willingness to pay to protect the watershed
+pop_4 <- population_4() #using Declare Design here to create a population of 4343 households, 500 of are AR contacts. #there is a direct correlation between who is already in contact with AR and their willingness to pay for fuels treatment
 
-kable(table(pop_7$AR_contact,pop_7$consent)) %>% 
+kable(table(pop_4$AR_contact,pop_4$WTP)) %>% 
   add_header_above(c("AR Contact"=1,"Consent to do Prescribed Burn"=2))
 
-```
-- For residents in contact with AR, the chance of responding is 50%
-- For residents not in contact with AR, the chance of responding is 20%
-```{r Measure7, echo=FALSE, message=F, eval=TRUE}
-## Declaring response bias
-
-
-reporting_7 <- declare_assignment(blocks=AR_contact,
-                  assignment_variable = "R", 
-                  block_prob=c(0.2,0.5)) #PH: using declare_assignment to block random assign (RA) households to the reporting category. Note that households on in contact with AR are more likely to be "reporters" (R==1), meaning that they are more likely to mail a response to the survey.
-pop_7 <- reporting_7(pop_7)
-```
-
-```{r resp-tab, echo=FALSE}
-kable(table(pop_7$AR_contact,pop_7$R)) %>% 
-    add_header_above(c("AR Contact"=1,"Respond to Survey"=2))
+# Generate estimand
+my_estimand_4 <- declare_estimands(mean(WTP),
+                                 label = "Ybar")
 
 ```
+Reporting & Sampling 
+```{r measure 4 declare report, echo=FALSE, message=F, eval=TRUE }
 
-Reporting and Sampling  
-```{r measure7-report-samp}
 
-sims_7 <- 1000 #simulations
-sam.n_7 <- 500 #attempted sample size
+# Block probabilities represent how likely it is that AR_Contacts or NON-AR_Contacts repond. AR_ Contacts are more likely to repond. 
+WTP_report <- declare_assignment(blocks=AR_contact,
+                  assignment_variable = "R",
+                  block_prob=c(0.3,0.7))
 
-store_7 <- rep(NA, sims_7)
-for (i in 1:sims_7){
-  store_7[i] <- mean(pop_7[sample(1:500,sam.n_7),] %>%
-                     filter(R==1) %>%
-                     pull(consent))} 
-
-#PH: in this for-loop, we're taking a random sample of households, subsetting out those that are "non-reporters" (R==0) and then taking the mean of their willingness to consent to prescribed burns. We do this "sims" number of times (1000).
-
-summary(store_7)
+WTP_sample <- declare_sampling(strata=AR_contact,
+                             strata_n=c(2895,1448)) # we will oversample nNON AR_contacts to get a better representation of their willingness to pay since they are less likely to report
 ```
 
-```{r}
-sam.dist_7 <- ggplot(data.frame(store_7), aes(x=store_7)) + 
-  geom_histogram(color="black", fill="white") +
-  xlab("Mean value of sample") +
-  geom_vline(xintercept = mean(pop_7$consent), linetype="dashed", 
-                color = "blue", size=1.5)
-sam.dist_7 #PH: the blue dashed vertical line represents the "true" population mean of household satisfaction, while the underlying histogram plots the mean level of satisfaction among "reporting" households we calculated for each of the 1000 draws from the sample. This figure demonstrates response bias, in that it shows how systematically excluding units -- in this case, households -- that have a lower probably of responding leads to an overestimate of the population parameter of interest -- in this case, mean levels of satisfaction.
+
+- For residents in contact with AR, the chance of responding is 70%
+- For residents not in contact with AR, the chance of responding is 30%
+```{r Measure4 strat weight, echo=FALSE, message=F, eval=TRUE}
+# What is strata weighted mean? Do we need this? 
+
+strata_weighted_mean_4 <- function(data){
+  data.frame(  
+  estimator_label = "strata_w_mean",
+  estimand_label = "Ybar",
+  n = nrow(data),
+  stringsAsFactors = FALSE,
+ 
+  estimate = data %>% filter(R==1) %>%
+    group_by(AR_contact) %>%
+    summarise(mean=mean(WTP)) %>%
+    mutate(prop=c(0.3,0.7)) %>%
+    mutate(sub.mean=mean*prop) %>% pull(sub.mean) %>%
+    sum())
+}
 ```
+
+
+```{r measure4 diagnosis}
+
+answer_4 <- declare_estimator(
+  handler = tidy_estimator(strata_weighted_mean),
+  estimand = my_estimand_4)
+
+design_4 <- population_4 + my_estimand_4 + WTP_report +
+          WTP_sample + answer_4
+
+diagnosis_4 <- diagnose_design(design, sims = 1000)
+
+diagnosis_4$diagnosands_df[,c(4,5,12,14)] %>%
+  kable()
+```
+
 
 
