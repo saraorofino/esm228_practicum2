@@ -1,0 +1,111 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r load, echo=FALSE}
+# Load the required packages
+library(DeclareDesign)
+library(knitr)
+library(ggplot2)
+library(grid)
+library(gridExtra)
+library(dplyr)
+library(kableExtra)
+```
+
+
+**Measure 5 - Effectiveness of Educational Materials** 
+
+*Target Population*: Private land owners in the studied area
+
+*Challenge of drawing a representative sample*: Sampling efforts are done by mailing questionnaires to randomly selected home owners in the 8 counties in the CABY region, but these clusters are of unequal size. It is unclear how many of the questionnaire recipients actually respond to the questionnaire. 
+
+*Sampling procedure*: Cluster-based sampling of private land owners in theses counties with unequal effort according to potential sample size (since some counties have larger population than others)
+
+Using demogrpahic data of each county, we found the approximate number of private land owners per county in the CABY region.
+
+County              Approximate private landowner population per county
+-----------         ---------------------------------------------------
+El Dorado           90000
+Placer              50000
+Nevada              30000
+Sierra              14000
+Yuba                11000
+Plumas              6000
+Amador              900
+Alpine              250
+
+### DeclareDesign()
+
+Declare the population
+
+```{r pop}
+set.seed(228)
+population <- declare_population(
+  county = add_level(N=8, 
+           basemean=c(1,0.5,0.5,0,-0.4,-0.2,-1,-1)), # the 'basemean' variable represents the mean value of the normal random variable that we use to generate the scale of the survey answers (support, oppose, neither oppose nor support), we assume that land owners in smaller counties tend to oppose prescribed burns and fuel treatments.
+  
+  homeowner = add_level(N=c(90000,50000,30000,14000,11000,6000,900,250),
+                      support=draw_ordered(x = rnorm (n = N, mean = basemean),
+                      breaks = c (-1, 1),
+                      #break_labels = c("support","neutral","oppose")
+                      )) #Here homeowners are labeled by support (value=3), neutral (value=2), or oppose (value=1), corresponding to the value of the normal random variable x<-1, -1<x<1, 1<x
+)
+pop <- population()
+pop.vector <- c(90000,50000,30000,14000,11000,6000,900,250)
+
+my_estimand <- declare_estimands(mean(support),
+                                 label = "Ybar")
+
+
+```
+
+Reporting and Sampling
+
+```{r report-samp}
+reporting <- declare_assignment(prob=0.4,
+                  assignment_variable = "R")
+# we assume a 40% survey response rate.
+
+sampling <- declare_sampling(strata=county,
+               strata_n=c(500,200,100,70,70,30,15,15))
+# we are sampling by county, our strata. We're going to send out 1000 questionnaires in total: 500 questionnaires in El Dorado, 200 in Placer, 100 in Nevada, 70 in Sierra, 70 in Yuba, 30 in Plumas, 15 in Amador, and 15 in Alpine.
+```
+
+Declare estimator
+
+```{r declare-estimator}
+
+strata_weighted_mean <- function(data){
+  data.frame(  
+  estimator_label = "strata_w_mean",
+  estimand_label = "Ybar",
+  n = nrow(data),
+  stringsAsFactors = FALSE,
+  
+  estimate = data %>% filter(R==1) %>% 
+    group_by(county) %>% 
+    summarise(mean=mean(support)) %>%
+    mutate(prop=pop.vector/sum(pop.vector)) %>% 
+    mutate(sub.mean=mean*prop) %>% pull(sub.mean) %>%  
+    sum()) 
+}
+
+```
+
+Measure 5 Diagnostic
+
+```{r diagnosis, cache=TRUE}
+
+answer <- declare_estimator(
+  handler = tidy_estimator(strata_weighted_mean), 
+  estimand = my_estimand) 
+
+design <- population + my_estimand + reporting + sampling + answer
+diagnosis <- diagnose_design(design, sims = 100)
+
+diagnosis$diagnosands_df[,c(4,5,12,14)] %>%
+  kable()
+
+```
